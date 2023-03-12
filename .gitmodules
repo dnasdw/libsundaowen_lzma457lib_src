@@ -1,0 +1,3 @@
+[submodule "lzma457"]
+	path = lzma457
+	url = https://github.com/dnasdw/libsundaowen_lzma457.git
