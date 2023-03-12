@@ -3,11 +3,18 @@
 #include "../lzma457/CPP/Common/MyWindows.h"
 #include "../lzma457/CPP/Common/MyInitGuid.h"
 
+extern "C"
+{
+#include "../lzma457/C/7zCrc.h"
+}
+
 #include "../lzma457/CPP/7zip/Common/StreamUtils.h"
 #include "../lzma457/CPP/7zip/Compress/LZMA/LZMADecoder.h"
 #include "../lzma457/CPP/7zip/Compress/LZMA/LZMAEncoder.h"
 
 #include "stringstream.h"
+
+bool CLzma457::s_bInitCRCTable = false;
 
 CLzma457::SProperties::SProperties()
 {
@@ -64,6 +71,12 @@ void CLzma457::SProperties::Normalize()
 
 bool CLzma457::Compress(const std::string& a_sUncompressedData, std::string& a_sCompressedData, SProperties a_Properties /* = SProperties() */)
 {
+	if (!s_bInitCRCTable)
+	{
+		CrcGenerateTable();
+		s_bInitCRCTable = true;
+	}
+
 	a_Properties.Normalize();
 
 	bool bDictionaryIsDefined = false;

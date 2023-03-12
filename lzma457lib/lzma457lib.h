@@ -93,6 +93,7 @@ public:
 	static bool Uncompress(const std::string& a_sCompressedData, std::string& a_sUncompressedData);
 	static bool GetProperties(const std::string& a_sCompressedData, SProperties& a_Properties);
 private:
+	static bool s_bInitCRCTable;
 	CLzma457();
 };
 
